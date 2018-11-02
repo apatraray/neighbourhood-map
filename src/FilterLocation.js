@@ -19,17 +19,17 @@ class FilterLocation extends Component {
             <input
               className='search-locations'
               type="text"
-              placeholder="Search place"
+              placeholder="Search Place"
               value={query}
               onChange={(event)=> this.updateQuery(event.target.value)}
             />
           </div>
         </div>
-      <ol className='contact-list'>
+      <ol className='marker-list'>
       {markers.map((marker) => (
         <li key={marker.id} className='marker-list-item'>
           <div className='marker-details'>
-{marker.title}
+            {marker.title}
           </div>
         </li>
       ))}
