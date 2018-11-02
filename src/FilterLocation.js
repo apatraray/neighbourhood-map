@@ -1,11 +1,41 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class FilterLocation extends Component {
+  state = {
+    query: '',
+    searchedLocations : []
+  }
+
   render() {
+    const {query, searchedLocations} = this.state
+    const {markers, onUpdateSearchLocation} = this.props
+
     return (
       <div className='filter-location'>
-        
-      </div>
+        <div className='filter-location-top'>
+          <Link className="close-search" to="/">Close</Link>
+          <div className="search-locations-input-wrapper">
+            <input
+              className='search-locations'
+              type="text"
+              placeholder="Search place"
+              value={query}
+              onChange={(event)=> this.updateQuery(event.target.value)}
+            />
+          </div>
+        </div>
+      <ol className='contact-list'>
+      {markers.map((marker) => (
+        <li key={marker.id} className='marker-list-item'>
+          <div className='marker-details'>
+{marker.title}
+          </div>
+        </li>
+      ))}
+      </ol>
+    </div>
+
     );
   }
 }
