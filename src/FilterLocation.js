@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { debounce } from 'throttle-debounce';
 
 class FilterLocation extends Component {
-  state = {
-    query: '',
-    searchedLocations : []
+  updateQuery = (query) => {
+    debounce(300,
+    // Debounced function
+        this.props.getQuery(query))
   }
 
   render() {
-    const {query, searchedLocations} = this.state
-    const {markers, onUpdateSearchLocation} = this.props
+    const {markers, getQuery, query} = this.props
 
     return (
       <div className='filter-location'>
@@ -19,9 +20,9 @@ class FilterLocation extends Component {
             <input
               className='search-locations'
               type="text"
-              placeholder="Search Place"
+              placeholder="Search Location"
               value={query}
-              onChange={(event)=> this.updateQuery(event.target.value)}
+              onChange={(event)=> getQuery(event.target.value)}
             />
           </div>
         </div>
@@ -29,7 +30,7 @@ class FilterLocation extends Component {
       {markers.map((marker) => (
         <li key={marker.id} className='marker-list-item'>
           <div className='marker-details'>
-            {marker.title}
+            {marker.name}
           </div>
         </li>
       ))}

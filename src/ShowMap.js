@@ -28,7 +28,7 @@ class ShowMap extends Component {
           {
             markers.map((mapLocation) => (
               <Marker key={mapLocation.id}
-               name={mapLocation.title}
+               name={mapLocation.name}
                position={mapLocation.location}
                onClick={this.onMarkerClick}
               />
