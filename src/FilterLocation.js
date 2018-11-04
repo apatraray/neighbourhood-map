@@ -15,7 +15,9 @@ class FilterLocation extends Component {
     return (
       <div className='filter-location'>
         <div className='filter-location-top'>
+        {(query !== '') && (
           <Link className="close-search" to="/">Close</Link>
+        )}
           <div className="search-locations-input-wrapper">
             <input
               className='search-locations'

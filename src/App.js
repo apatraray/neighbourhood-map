@@ -12,11 +12,11 @@ var params = {
   "ll": "32.576139,-117.014674"
 };
 var defaultMarkers = [
-  {id: 1, name: 'Otay Vally Regional Park', location: {lat: 32.5886294, lng: -117.062309}},
-  {id: 2, name: 'SeaWorld San Diego', location: {lat: 32.763903, lng: -117.229457}},
-  {id: 3, name: 'Walmart Supercenter', location: {lat: 32.7416849, lng: -117.053625}},
-  {id: 4, name: 'SDCCU Stadium', location: {lat: 32.7831122, lng: -117.1195716}},
-  {id: 5, name: 'San Diego Zoo', location: {lat: 32.735316, lng: -117.149046}},
+  {id: 1, name: 'Aquatica San Diego', location: {lat: 32.587840, lng: -117.010753}},
+  {id: 2, name: 'Ocean View Hills Community Park', location: {lat: 32.582299, lng: -117.026841}},
+  {id: 3, name: 'North Island Credit Union Amphitheatre', location: {lat: 32.587917, lng: -117.006351}},
+  {id: 4, name: 'Vista Pacifica Park', location: {lat: 32.581037, lng: -117.005747}},
+  {id: 5, name: 'Walmart', location: {lat: 32.581702, lng: -117.035608}},
 ];
 
 class App extends Component {
@@ -34,24 +34,33 @@ class App extends Component {
   }
 
   updateMarkers(query){
+    var defaultMarkersFiltered = defaultMarkers
+    this.state.allNearbyLocations.map((location)=>(
+      defaultMarkersFiltered = defaultMarkersFiltered.filter((defaultLocation)=>
+        (location.name!==defaultLocation.name)
+      ))
+    )
+    var newLocations = defaultMarkersFiltered.concat(this.state.allNearbyLocations)
+
     if(query!=='') {
-      this.findMarkers(query)
+      this.findMarkers(query, newLocations)
     }
     else{
-      this.setState({activeMarkers: defaultMarkers})
+      this.setState({activeMarkers: newLocations})
     }
   }
   getQuery = (query)=> {
     this.setState({query})
     this.updateMarkers(query);
   }
-  findMarkers = (query)=>{
+  findMarkers = (query, newLocations)=>{
     const match = new RegExp(escapeRegExp(query), 'i')
-    var showLocations = this.state.allNearbyLocations.filter((location) => match.test(location.name))
+    var showLocations = newLocations.filter((location) => match.test(location.name))
     this.setState({activeMarkers:showLocations})
   }
 
   render() {
+    console.log(this.state.allNearbyLocations)
     return (
       <div className="App">
         <FilterLocation markers={this.state.activeMarkers} query={this.state.query}

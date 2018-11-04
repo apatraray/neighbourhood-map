@@ -22,6 +22,9 @@ body {
   top: 0px;
   z-index: -1;
 }
+.filter-location-top {
+  width: 100%;
+}
 .filter-location {
   position: fixed;
   left: 0px;
@@ -42,6 +45,10 @@ body {
   font-size: 1em;
   border: 0;
   outline: none;
+}
+.search-locations:focus {
+  background-image: url('./icons/filter-afterInteraction.svg');
+
 }
 .marker-list {
   width: 100%;

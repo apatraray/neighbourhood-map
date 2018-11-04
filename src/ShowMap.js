@@ -23,7 +23,7 @@ class ShowMap extends Component {
                   lat: 32.576139,
                   lng: -117.014674
                 }}
-          zoom={10}
+          zoom={14}
           >
           {
             markers.map((mapLocation) => (
