@@ -5,15 +5,42 @@ class ShowMap extends Component {
   state = {
     currentMarker: {},
     selectedPlace: {},
-    showingInfoWindow: false
+    showingInfoWindow: false,
+    markerContent: ''
   }
-
-  onMarkerClick = (props, marker, e) =>
+  onMapClicked = (props) =>{
+  if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        currentMarker: null
+      })
+    }
+  };
+  onMarkerClick = (props, marker, e) =>{
     this.setState({
       selectedPlace: props,
       currentMarker: marker,
       showingInfoWindow: true
     });
+    this.getMarkerContent();
+  }
+  onMouseoverMarker = (props, marker, e) =>{
+    this.setState({
+      selectedPlace: props,
+      currentMarker: marker,
+      showingInfoWindow: true
+    });
+    this.getMarkerContent();
+  }
+    onMouseOutMarker = (e) =>
+      this.setState({
+        showingInfoWindow: false,
+        currentMarker: null
+    });
+
+    getMarkerContent(){
+
+    }
   render() {
     const {google, markers} = this.props;
 
@@ -24,21 +51,28 @@ class ShowMap extends Component {
                   lng: -117.014674
                 }}
           zoom={14}
+          onClick={this.onMapClicked}
           >
           {
             markers.map((mapLocation) => (
-              <Marker key={mapLocation.id}
+              <Marker key={mapLocation.id} className={'map-marker'}
                name={mapLocation.name}
-               position={mapLocation.location}
+               address={mapLocation.location.formattedAddress[0]}
+               position={mapLocation.location.labeledLatLngs[0]}
                onClick={this.onMarkerClick}
+               onMouseover={this.onMouseoverMarker}
+               onMouseOut={this.onMouseOutMarker}
               />
             ))
           }
           <InfoWindow
           marker={this.state.currentMarker}
+          onOpen={this.windowHasOpened}
+          onClose={this.windowHasClosed}
           visible={this.state.showingInfoWindow}>
-            <div>
-              {this.state.selectedPlace.name}
+            <div className="infoWindow-container">
+              <p>{this.state.selectedPlace.name}</p>
+              <p>{this.state.selectedPlace.address}</p>
             </div>
         </InfoWindow>
         </Map>

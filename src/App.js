@@ -12,11 +12,16 @@ var params = {
   "ll": "32.576139,-117.014674"
 };
 var defaultMarkers = [
-  {id: 1, name: 'Aquatica San Diego', location: {lat: 32.587840, lng: -117.010753}},
-  {id: 2, name: 'Ocean View Hills Community Park', location: {lat: 32.582299, lng: -117.026841}},
-  {id: 3, name: 'North Island Credit Union Amphitheatre', location: {lat: 32.587917, lng: -117.006351}},
-  {id: 4, name: 'Vista Pacifica Park', location: {lat: 32.581037, lng: -117.005747}},
-  {id: 5, name: 'Walmart', location: {lat: 32.581702, lng: -117.035608}},
+  {id: 1, name: 'Aquatica San Diego', location: {labeledLatLngs: [{
+    lat: 32.587840, lng: -117.010753}], formattedAddress: ["2052 Entertainment Cir"]} },
+  {id: 2, name: 'Ocean View Hills Community Park', location: {labeledLatLngs: [{
+    lat: 32.582299, lng: -117.026841}], formattedAddress: ["San Diego, CA 92154"]}},
+  {id: 3, name: 'North Island Credit Union Amphitheatre', location: {labeledLatLngs: [{
+    lat: 32.587917, lng: -117.006351}], formattedAddress: ["2050 Entertainment Cir"]}},
+  {id: 4, name: 'Vista Pacifica Park', location: {labeledLatLngs: [{
+    lat: 32.581037, lng: -117.005747}], formattedAddress: ["Avenida De Las Vistas"]}},
+  {id: 5, name: 'Walmart', location: {labeledLatLngs: [{
+    lat: 32.581702, lng: -117.035608}], formattedAddress: ["710 Dennery Rd"]}}
 ];
 
 class App extends Component {
@@ -41,13 +46,20 @@ class App extends Component {
       ))
     )
     var newLocations = defaultMarkersFiltered.concat(this.state.allNearbyLocations)
-
+    newLocations=this.setFormattedAddress(newLocations)
     if(query!=='') {
       this.findMarkers(query, newLocations)
     }
     else{
       this.setState({activeMarkers: newLocations})
     }
+  }
+  setFormattedAddress(newLocations){
+    newLocations.map((location)=> (
+      (location===undefined) && (location.formattedAddress[0]= " ")
+    ))
+    console.log(newLocations)
+    return newLocations
   }
   getQuery = (query)=> {
     this.setState({query})
