@@ -7,7 +7,6 @@ var foursquare = require('react-foursquare')({
   clientID: 'PF2PXHO1CXGHJE4ZTURAESVOF5DGBK14DF05CYRQURPLWT42',
   clientSecret: 'KQQTV2WASQX23QCDZQQRA4MSTNRJZGDZ1YEB3KMSOJAGOAAO'
 });
-
 var params = {
   "ll": "32.576139,-117.014674"
 };
@@ -28,16 +27,17 @@ class App extends Component {
   state = {
     activeMarkers: defaultMarkers,
     query : '',
-    allNearbyLocations: []
+    allNearbyLocations: [],
+    currentMarker: {},
+    selectedPlace: {},
+    showingInfoWindow: false
   };
-
   componentDidMount() {
     foursquare.venues.getVenues(params)
       .then(res=> {
         this.setState({ allNearbyLocations: res.response.venues });
       });
   }
-
   updateMarkers(query){
     var defaultMarkersFiltered = defaultMarkers
     this.state.allNearbyLocations.map((location)=>(
@@ -70,14 +70,56 @@ class App extends Component {
     var showLocations = newLocations.filter((location) => match.test(location.name))
     this.setState({activeMarkers:showLocations})
   }
+  onMapClicked = (props) =>{
+  if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        currentMarker: null
+      })
+    }
+  };
+  onMarkerClick = (props, marker, e) =>{
+    this.setState({
+      selectedPlace: props,
+      currentMarker: marker,
+      showingInfoWindow: true
+    });
+  }
+  onMouseoverMarker = (props, marker, e) =>{
+    this.setState({
+      selectedPlace: props,
+      currentMarker: marker,
+      showingInfoWindow: true
+    });
+    console.log(props)
+  }
+  onMouseOutMarker = (e) =>
+      this.setState({
+        showingInfoWindow: false,
+        currentMarker: null
+    });
+  onMarkerClickFromList = (marker) =>{
+  this.setState({
+    selectedPlace: this.state.activeMarkers.filter((activeMarker) =>
+    (activeMarker.id === marker.id))[0],
+    currentMarker: this.state.activeMarkers.filter((activeMarker) =>
+    (activeMarker.id === marker.id))[0],
+    showingInfoWindow: true
+  });
+}
 
   render() {
     console.log(this.state.allNearbyLocations)
+    console.log(this.state.currentMarker)
+
     return (
       <div className="App">
         <FilterLocation markers={this.state.activeMarkers} query={this.state.query}
-        getQuery={this.getQuery}/>
-        <ShowMap markers={this.state.activeMarkers} afterMapLoad={this.updateMarkerLocation}/>
+        getQuery={this.getQuery} onMarkerClickFromList={this.onMarkerClickFromList}/>
+        <ShowMap markers={this.state.activeMarkers} currentMarker={this.state.currentMarker}
+        selectedPlace={this.state.selectedPlace} showingInfoWindow={this.state.showingInfoWindow}
+        onMarkerClick={this.onMarkerClick} onMouseoverMarker={this.onMouseoverMarker}
+        onMouseOutMarker={this.onMouseOutMarker} onMapClicked={this.onMapClicked}/>
       </div>
     );
   }

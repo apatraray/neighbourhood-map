@@ -6,12 +6,12 @@ class FilterLocation extends Component {
   updateQuery = (query) => {
     debounce(300,
     // Debounced function
-        this.props.getQuery(query))
+      this.props.getQuery(query))
   }
 
   render() {
-    const {markers, getQuery, query} = this.props
-
+    const {markers, query, onMarkerClickFromList} = this.props
+    console.log(markers)
     return (
       <div className='filter-location'>
         <div className='filter-location-top'>
@@ -24,14 +24,16 @@ class FilterLocation extends Component {
               type="text"
               placeholder="Search Location"
               value={query}
-              onChange={(event)=> getQuery(event.target.value)}
+              onChange={(event)=> this.updateQuery(event.target.value)}
             />
           </div>
         </div>
       <ol className='marker-list'>
       {markers.map((marker) => (
         <li key={marker.id} className='marker-list-item'>
-          <div className='marker-details'>
+          <div className='marker-details'
+          onClick={() => onMarkerClickFromList(marker)}
+          >
             {marker.name}
           </div>
         </li>

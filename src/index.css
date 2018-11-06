@@ -71,9 +71,6 @@ body {
   background-size: 20px;
   font-size: 0;
 }
-.map-marker{
-  color: green
-}
 .InfoWindow-container{
   position: fixed;
   left: 0px;
@@ -84,4 +81,9 @@ body {
   height: 100vh;
   background-color: black;
   color: white;
+}
+.marker-details:hover{
+  cursor: pointer;
+  background-color: #a1ab9e;
+  color: #4a4848
 }
