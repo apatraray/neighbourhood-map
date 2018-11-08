@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilterLocation from './FilterLocation';
 import ShowMap from './ShowMap';
 import escapeRegExp from 'escape-string-regexp';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 var foursquare = require('react-foursquare')({
   clientID: 'PF2PXHO1CXGHJE4ZTURAESVOF5DGBK14DF05CYRQURPLWT42',
@@ -99,11 +100,16 @@ class App extends Component {
         currentMarker: null
     });
   onMarkerClickFromList = (marker) =>{
+  var newMarker = this.state.activeMarkers.filter((mapLocation) =>
+  ((mapLocation.id === marker.id)&&(<Marker key={marker.id}
+     name={marker.name}
+     address={marker.location.formattedAddress[0]}
+     position={marker.location.labeledLatLngs[0]}
+     />)))
   this.setState({
-    selectedPlace: this.state.activeMarkers.filter((activeMarker) =>
-    (activeMarker.id === marker.id))[0],
-    currentMarker: this.state.activeMarkers.filter((activeMarker) =>
-    (activeMarker.id === marker.id))[0],
+    selectedPlace: (this.state.activeMarkers.filter((activeMarker) =>
+    (activeMarker.id === marker.id))[0]).location.labeledLatLngs[0],
+    currentMarker: newMarker,
     showingInfoWindow: true
   });
 }
