@@ -11,7 +11,7 @@ class FilterLocation extends Component {
 
   render() {
     const {markers, query, onMarkerClickFromList} = this.props
-    console.log(markers)
+//    console.log(markers)
     return (
       <div className='filter-location'>
         <div className='filter-location-top'>
@@ -29,10 +29,10 @@ class FilterLocation extends Component {
           </div>
         </div>
       <ol className='marker-list'>
-      {markers.map((marker) => (
-        <li key={marker.id} className='marker-list-item'>
+      {markers.map((marker, index) => (
+        <li key={index} className='marker-list-item'>
           <div className='marker-details'
-          onClick={() => onMarkerClickFromList(marker)}
+          onClick={() => onMarkerClickFromList(marker, index)}
           >
             {marker.name}
           </div>

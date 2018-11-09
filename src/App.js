@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FilterLocation from './FilterLocation';
 import ShowMap from './ShowMap';
 import escapeRegExp from 'escape-string-regexp';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 var foursquare = require('react-foursquare')({
   clientID: 'PF2PXHO1CXGHJE4ZTURAESVOF5DGBK14DF05CYRQURPLWT42',
@@ -13,15 +12,15 @@ var params = {
 };
 var defaultMarkers = [
   {id: 1, name: 'Aquatica San Diego', location: {labeledLatLngs: [{
-    lat: 32.587840, lng: -117.010753}], formattedAddress: ["2052 Entertainment Cir"]} },
+    lat: 32.587840, lng: -117.010753}], formattedAddress: ["2052 Entertainment Cir"]}, animation: null },
   {id: 2, name: 'Ocean View Hills Community Park', location: {labeledLatLngs: [{
-    lat: 32.582299, lng: -117.026841}], formattedAddress: ["San Diego, CA 92154"]}},
+    lat: 32.582299, lng: -117.026841}], formattedAddress: ["San Diego, CA 92154"]}, animation: null},
   {id: 3, name: 'North Island Credit Union Amphitheatre', location: {labeledLatLngs: [{
-    lat: 32.587917, lng: -117.006351}], formattedAddress: ["2050 Entertainment Cir"]}},
+    lat: 32.587917, lng: -117.006351}], formattedAddress: ["2050 Entertainment Cir"]}, animation: null},
   {id: 4, name: 'Vista Pacifica Park', location: {labeledLatLngs: [{
-    lat: 32.581037, lng: -117.005747}], formattedAddress: ["Avenida De Las Vistas"]}},
+    lat: 32.581037, lng: -117.005747}], formattedAddress: ["Avenida De Las Vistas"]}, animation: null},
   {id: 5, name: 'Walmart', location: {labeledLatLngs: [{
-    lat: 32.581702, lng: -117.035608}], formattedAddress: ["710 Dennery Rd"]}}
+    lat: 32.581702, lng: -117.035608}], formattedAddress: ["710 Dennery Rd"]}, animation: null}
 ];
 
 class App extends Component {
@@ -31,7 +30,10 @@ class App extends Component {
     allNearbyLocations: [],
     currentMarker: {},
     selectedPlace: {},
-    showingInfoWindow: false
+    showingInfoWindow: false,
+    markerClickedFromList: {},
+    isListClicked: false,
+    markerindex: 0
   };
   componentDidMount() {
     foursquare.venues.getVenues(params)
@@ -99,24 +101,16 @@ class App extends Component {
         showingInfoWindow: false,
         currentMarker: null
     });
-  onMarkerClickFromList = (marker) =>{
-  var newMarker = this.state.activeMarkers.filter((mapLocation) =>
-  ((mapLocation.id === marker.id)&&(<Marker key={marker.id}
-     name={marker.name}
-     address={marker.location.formattedAddress[0]}
-     position={marker.location.labeledLatLngs[0]}
-     />)))
-  this.setState({
-    selectedPlace: (this.state.activeMarkers.filter((activeMarker) =>
-    (activeMarker.id === marker.id))[0]).location.labeledLatLngs[0],
-    currentMarker: newMarker,
-    showingInfoWindow: true
-  });
+  onMarkerClickFromList = (marker, index) =>{
+    this.setState({
+      markerClickedFromList: marker,
+      isListClicked: true,
+      markerindex: index
+    })
 }
 
   render() {
-    console.log(this.state.allNearbyLocations)
-    console.log(this.state.currentMarker)
+//    console.log(this.state.allNearbyLocations)
 
     return (
       <div className="App">
@@ -125,7 +119,9 @@ class App extends Component {
         <ShowMap markers={this.state.activeMarkers} currentMarker={this.state.currentMarker}
         selectedPlace={this.state.selectedPlace} showingInfoWindow={this.state.showingInfoWindow}
         onMarkerClick={this.onMarkerClick} onMouseoverMarker={this.onMouseoverMarker}
-        onMouseOutMarker={this.onMouseOutMarker} onMapClicked={this.onMapClicked}/>
+        onMouseOutMarker={this.onMouseOutMarker} onMapClicked={this.onMapClicked}
+        markerClickedFromList={this.state.markerClickedFromList}
+        isListClicked={this.state.isListClicked} markerIndex={this.state.markerindex}/>
       </div>
     );
   }
