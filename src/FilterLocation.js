@@ -5,13 +5,11 @@ import { debounce } from 'throttle-debounce';
 class FilterLocation extends Component {
   updateQuery = (query) => {
     debounce(300,
-    // Debounced function
       this.props.getQuery(query))
   }
 
   render() {
     const {markers, query, onMarkerClickFromList} = this.props
-//    console.log(markers)
     return (
       <div className='filter-location'>
         <div className='filter-location-top'>

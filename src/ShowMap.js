@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+
 class ShowMap extends Component {
   onMarkerClickShowMap = (props, marker, e) =>{
-    if (marker.getAnimation() !== null) {
-      marker.setAnimation(null);
-    } else {
-      marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+      }
+      this.props.onMarkerClick(props, marker, e)
     }
-    this.props.onMarkerClick(props, marker, e)
-  }
 
   render() {
     const {google, markers, onMouseoverMarker,
       onMapClicked, currentMarker, selectedPlace, showingInfoWindow,
-      markerClickedFromList, isListClicked, markerIndex} = this.props;
+      markerClickedFromList, isListClicked, markerIndex, newMarkers} = this.props;
 
+    var newActiveMarkers = isListClicked?newMarkers:markers
+    var newCurrentMarker = isListClicked?markers[markerIndex]:currentMarker
     return (
       <div className="map-container">
         <Map google={google} initialCenter={{
@@ -25,7 +28,7 @@ class ShowMap extends Component {
           onClick={(props)=> onMapClicked(props)}
           >
           {
-            markers.map((mapLocation, index) => (
+            newActiveMarkers.map((mapLocation, index) => (
               <Marker key={index}
                id={mapLocation.id}
                name={mapLocation.name}
@@ -35,7 +38,7 @@ class ShowMap extends Component {
                onClick={(props, mapLocation, e) => this.onMarkerClickShowMap(props, mapLocation, e)}
                onMouseover={(props, mapLocation, e) => onMouseoverMarker(props, mapLocation, e)}
                onMouseOut={(e)=> this.onMouseOutMarker(e)}
-               animation = {this.props.google.maps.Animation.DROP}
+    //           animation = {this.props.google.maps.Animation.DROP}
               />
             ))
           }
@@ -59,6 +62,7 @@ class ShowMap extends Component {
               <p>{selectedPlace.address}</p>
             </div>
          </InfoWindow>
+
         </Map>
       </div>
     )

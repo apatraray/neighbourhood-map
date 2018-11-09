@@ -33,7 +33,8 @@ class App extends Component {
     showingInfoWindow: false,
     markerClickedFromList: {},
     isListClicked: false,
-    markerindex: 0
+    markerindex: 0,
+    newActiveMarkers: []
   };
   componentDidMount() {
     foursquare.venues.getVenues(params)
@@ -61,7 +62,6 @@ class App extends Component {
     newLocations.map((location)=> (
       (location===undefined) && (location.formattedAddress[0]= " ")
     ))
-    console.log(newLocations)
     return newLocations
   }
   getQuery = (query)=> {
@@ -105,23 +105,28 @@ class App extends Component {
     this.setState({
       markerClickedFromList: marker,
       isListClicked: true,
-      markerindex: index
+      markerindex: index,
+      newActiveMarkers: this.state.activeMarkers.filter((thisMarker)=>(
+        thisMarker.id !== marker.id
+      ))
     })
+    console.log("activeMarkers",this.state.activeMarkers[index])
 }
 
   render() {
-//    console.log(this.state.allNearbyLocations)
 
     return (
       <div className="App">
         <FilterLocation markers={this.state.activeMarkers} query={this.state.query}
         getQuery={this.getQuery} onMarkerClickFromList={this.onMarkerClickFromList}/>
+
         <ShowMap markers={this.state.activeMarkers} currentMarker={this.state.currentMarker}
         selectedPlace={this.state.selectedPlace} showingInfoWindow={this.state.showingInfoWindow}
         onMarkerClick={this.onMarkerClick} onMouseoverMarker={this.onMouseoverMarker}
         onMouseOutMarker={this.onMouseOutMarker} onMapClicked={this.onMapClicked}
         markerClickedFromList={this.state.markerClickedFromList}
-        isListClicked={this.state.isListClicked} markerIndex={this.state.markerindex}/>
+        isListClicked={this.state.isListClicked} markerIndex={this.state.markerindex}
+        newMarkers={this.state.newActiveMarkers}/>
       </div>
     );
   }
