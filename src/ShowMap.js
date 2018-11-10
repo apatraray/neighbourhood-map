@@ -9,8 +9,7 @@ class ShowMap extends Component {
         marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
       }
       this.props.onMarkerClick(props, marker, e)
-    }
-
+  }
   render() {
     const {google, markers, onMouseoverMarker,
       onMapClicked, currentMarker, selectedPlace, showingInfoWindow,
@@ -38,7 +37,7 @@ class ShowMap extends Component {
                onClick={(props, mapLocation, e) => this.onMarkerClickShowMap(props, mapLocation, e)}
                onMouseover={(props, mapLocation, e) => onMouseoverMarker(props, mapLocation, e)}
                onMouseOut={(e)=> this.onMouseOutMarker(e)}
-    //           animation = {this.props.google.maps.Animation.DROP}
+               animation = {isListClicked?null:this.props.google.maps.Animation.DROP}
               />
             ))
           }
