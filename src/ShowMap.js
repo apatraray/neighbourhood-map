@@ -17,6 +17,7 @@ class ShowMap extends Component {
 
     var newActiveMarkers = isListClicked?newMarkers:markers
     var newCurrentMarker = isListClicked?markers[markerIndex]:currentMarker
+    var markerPosition = {lat:32.576139, lng:-117.014674}
     return (
       <div className="map-container">
         <Map google={google} initialCenter={{
@@ -55,6 +56,7 @@ class ShowMap extends Component {
           }
           <InfoWindow
           marker={currentMarker}
+          position={markerPosition}
           visible={showingInfoWindow}>
             <div className="infoWindow-container">
               <p>{selectedPlace.name}</p>

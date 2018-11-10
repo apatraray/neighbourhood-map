@@ -37,14 +37,15 @@ body {
   color: #bdbaba;
 }
 .search-locations {
-  padding: 10px 0px 10px 40px;
+  padding: 10px 0px 10px 15px;
   background-image: url('./icons/filter.svg');
   background-repeat: no-repeat;
   background-position: 90%;
   background-size: 1em;
   font-size: 1em;
-  border: 0;
-  outline: none;
+  border-radius: 0.5em;
+  border: 0.2em solid #b55858;
+  width: 85%;
 }
 .search-locations:focus {
   background-image: url('./icons/filter-afterInteraction.svg');
@@ -60,15 +61,24 @@ body {
   padding: 5px 0px 5px 15px;
   display: flex;
   font-size: 0.8em;
+  border-radius: 0.5em;
+  border: 0.1em solid;
+}
+.marker-details {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  display: inline;
 }
 .search-locations-input-wrapper {
   width:100%;
   padding: 0.5px;
+  display: flex;
 }
 .close-search {
   width: 25px;
-  height: 35px;
-  position: absolute;
+  height: 40px;
+  width: 24%;
   background-position: right;
   background-image: url('./icons/cancel.svg');
   background-position: 90%;
@@ -76,6 +86,8 @@ body {
   background-size: 20px;
   font-size: 0;
   cursor: pointer;
+  border-radius: 0.5em;
+  border: 0.2em solid #b55858;
 }
 .InfoWindow-container{
   position: fixed;

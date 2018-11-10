@@ -15,7 +15,10 @@ class FilterLocation extends Component {
             <input
               className='search-locations'
               type="text"
+              name="search"
+              aria-label="Search"
               placeholder="Search Location"
+              aria-required="false"
               value={query}
               onChange={(event)=> this.updateQuery(event.target.value)}
             />
@@ -27,7 +30,7 @@ class FilterLocation extends Component {
           </div>
       <ol className='marker-list'>
       {markers.map((marker, index) => (
-        <li key={index} className='marker-list-item' role='treeitem'>
+        <li key={index} className='marker-list-item' role='treeitem' tabindex='0'>
           <div className='marker-details'
           onClick={() => onMarkerClickFromList(marker, index)}
           >
