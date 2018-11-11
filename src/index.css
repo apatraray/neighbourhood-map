@@ -25,7 +25,7 @@ body {
 .filter-location-top {
   width: 100%;
 }
-.filter-location {
+.filter-container {
   position: fixed;
   left: 0px;
   top: 0px;
@@ -104,4 +104,52 @@ body {
   cursor: pointer;
   background-color: #a1ab9e;
   color: #4a4848
+}
+.hamburger-icon {
+  width: 25px;
+  height: 40px;
+  background-position: right;
+  background-position: 90%;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  font-size: 0;
+  cursor: pointer;
+}
+.return-hamburger,.hamburger-icon,.close-search {
+  width: 25px;
+  height: 40px;
+  background-position: right;
+  background-position: 90%;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  font-size: 0;
+  cursor: pointer;
+}
+.return-hamburger {
+  background-image: url('./icons/arrow-back.svg');
+  border-radius: 0.5em;
+  border: 0.2em solid #b55858;
+}
+.hamburger-icon {
+  background-image: url('./icons/hamburger.svg');
+}
+.close-search {
+  width: 24%;
+  background-image: url('./icons/cancel.svg');
+  border-radius: 0.5em;
+  border: 0.2em solid #b55858;
+}
+.hamburger-icon:hover, .return-hamburger:hover, .close-search:hover {
+  background-color: #8bbeec;
+}
+@media only screen and (max-width : 1025px) {
+.hamburger-icon-wrapper {
+	display:none;
+}
+}
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 468px) {
+  .hamburger-icon-wrapper {
+  	display:block;
+  }
 }

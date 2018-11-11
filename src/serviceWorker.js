@@ -1,4 +1,3 @@
-var newCacheName = 'restaurants-review';
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -10,7 +9,6 @@ var newCacheName = 'restaurants-review';
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA.
-console.log('My custom service worker')
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -56,12 +54,6 @@ export function register(config) {
       }
     });
   }
-}
-function registerSW(swUrl){
-  navigator.serviceWorker
-    .register(swUrl)
-    .then(registration => {
-    })
 }
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker

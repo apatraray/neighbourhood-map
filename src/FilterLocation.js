@@ -2,15 +2,38 @@ import React, { Component } from 'react';
 import { debounce } from 'throttle-debounce';
 
 class FilterLocation extends Component {
+  state={
+    isHamBurgerIconOn: true
+  }
   updateQuery = (query) => {
     debounce(300,
       this.props.getQuery(query))
   }
-
+  getHamBurgerIcon=()=> {
+    console.log(this.state.isHamBurgerIconOn);
+    this.setState({
+      isHamBurgerIconOn: false
+    })
+  }
+  getBackHamburgerIcon =()=>{
+    this.setState({
+      isHamBurgerIconOn: true
+    })
+  }
   render() {
     const {markers, query, getQuery, onMarkerClickFromList} = this.props
+    const {isHamBurgerIconOn} = this.state
     return (
-      <div className='filter-location'>
+      <div className='filter-container'>
+      {(isHamBurgerIconOn === true) &&
+        <div className="hamburger-icon-wrapper">
+          <button className='hamburger-icon'
+          aria-label='Expand to search places'
+          onClick={()=> this.getHamBurgerIcon()}></button>
+        </div>
+      }
+        {(isHamBurgerIconOn === false) &&
+        <div className='filter-location'>
           <div className="search-locations-input-wrapper">
             <input
               className='search-locations'
@@ -27,20 +50,26 @@ class FilterLocation extends Component {
               aria-label='cancel filter to search result'
               onClick={(event)=> getQuery('')}>Close</button>
             )}
-          </div>
-      <ol className='marker-list'>
-      {markers.map((marker, index) => (
-        <li key={index} className='marker-list-item' role='treeitem' tabindex='0'>
-          <div className='marker-details'
-          onClick={() => onMarkerClickFromList(marker, index)}
-          >
-            {marker.name}
-          </div>
-        </li>
-      ))}
-      </ol>
+            {(isHamBurgerIconOn === true) && (
+              <button role='button' className='return-hamburger'
+              aria-label='return to hamburger icon'
+              onClick={()=> this.getBackHamburgerIcon()}>Back</button>
+            )}
+        </div>
+        <ol className='marker-list'>
+          {markers.map((marker, index) => (
+            <li key={index} className='marker-list-item' role='treeitem' tabIndex={0}>
+              <div className='marker-details'
+              onClick={() => onMarkerClickFromList(marker, index)}
+              >
+              {marker.name}
+              </div>
+            </li>
+          ))}
+        </ol>
     </div>
-
+  }
+  </div>
     );
   }
 }
