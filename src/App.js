@@ -40,6 +40,9 @@ class App extends Component {
     foursquare.venues.getVenues(params)
       .then(res=> {
         this.setState({ allNearbyLocations: res.response.venues });
+      })
+      .catch(error => {
+        console.error('Error retrieving the venues from the foursquare site:', error);
       });
   }
   updateMarkers(query){
