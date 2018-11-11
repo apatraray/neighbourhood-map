@@ -94,7 +94,6 @@ class App extends Component {
       currentMarker: marker,
       showingInfoWindow: true
     });
-    console.log(props)
   }
   onMouseOutMarker = (e) =>
       this.setState({

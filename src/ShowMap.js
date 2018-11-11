@@ -16,7 +16,6 @@ class ShowMap extends Component {
       markerClickedFromList, isListClicked, markerIndex, newMarkers} = this.props;
 
     var newActiveMarkers = isListClicked?newMarkers:markers
-    var newCurrentMarker = isListClicked?markers[markerIndex]:currentMarker
     var markerPosition = {lat:32.576139, lng:-117.014674}
     return (
       <div className="map-container">

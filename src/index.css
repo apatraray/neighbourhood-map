@@ -26,7 +26,7 @@ body {
   width: 100%;
 }
 .filter-container {
-  position: fixed;
+  position: absolute;
   left: 0px;
   top: 0px;
   width: 25%;
@@ -121,7 +121,7 @@ body {
   background-position: right;
   background-position: 90%;
   background-repeat: no-repeat;
-  background-size: 20px;
+  background-size: 25px;
   font-size: 0;
   cursor: pointer;
 }
@@ -137,19 +137,50 @@ body {
   width: 24%;
   background-image: url('./icons/cancel.svg');
   border-radius: 0.5em;
+  background-size: 20px;
   border: 0.2em solid #b55858;
 }
 .hamburger-icon:hover, .return-hamburger:hover, .close-search:hover {
   background-color: #8bbeec;
 }
 @media only screen and (max-width : 1025px) {
-.hamburger-icon-wrapper {
-	display:none;
+  .hamburger-icon-wrapper {
+  	display:none;
+  }
+  .return-hamburger {
+    display:none;
+  }
 }
+@media only screen and (max-width : 720px) {
+  .search-locations {
+    font-size: 0.9em
+  }
+}
+@media only screen and (max-width : 670px) {
+  .search-locations {
+    font-size: 0.85em
+  }
+}
+@media only screen and (max-width : 551px) {
+  .search-locations {
+    font-size: 0.7em
+  }
 }
 /* Custom, iPhone Retina */
-@media only screen and (max-width : 468px) {
+@media only screen and (max-width : 550px) {
   .hamburger-icon-wrapper {
   	display:block;
+  }
+  .return-hamburger {
+    display:block;
+  }
+  .search-locations {
+    font-size: 1em
+  }
+  .filter-container {
+    width: 60%
+  }
+  .marker-list-item {
+    font-size: 0.95em;
   }
 }

@@ -3,36 +3,37 @@ import { debounce } from 'throttle-debounce';
 
 class FilterLocation extends Component {
   state={
-    isHamBurgerIconOn: true
+    isHamBurgerIconOn: false,
+    viewCount: 0
   }
   updateQuery = (query) => {
     debounce(300,
       this.props.getQuery(query))
   }
   getHamBurgerIcon=()=> {
-    console.log(this.state.isHamBurgerIconOn);
     this.setState({
-      isHamBurgerIconOn: false
+      isHamBurgerIconOn: true,
+      viewCount: 1
     })
   }
   getBackHamburgerIcon =()=>{
     this.setState({
-      isHamBurgerIconOn: true
+      isHamBurgerIconOn: false
     })
   }
   render() {
     const {markers, query, getQuery, onMarkerClickFromList} = this.props
-    const {isHamBurgerIconOn} = this.state
+    const {isHamBurgerIconOn, viewCount} = this.state
     return (
       <div className='filter-container'>
-      {(isHamBurgerIconOn === true) &&
+      {(isHamBurgerIconOn === false) &&
         <div className="hamburger-icon-wrapper">
           <button className='hamburger-icon'
           aria-label='Expand to search places'
           onClick={()=> this.getHamBurgerIcon()}></button>
         </div>
       }
-        {(isHamBurgerIconOn === false) &&
+        {(isHamBurgerIconOn === true || viewCount===0) &&
         <div className='filter-location'>
           <div className="search-locations-input-wrapper">
             <input
@@ -46,12 +47,12 @@ class FilterLocation extends Component {
               onChange={(event)=> this.updateQuery(event.target.value)}
             />
             {(query !== '') && (
-              <button role='button' className='close-search'
+              <button className='close-search'
               aria-label='cancel filter to search result'
               onClick={(event)=> getQuery('')}>Close</button>
             )}
             {(isHamBurgerIconOn === true) && (
-              <button role='button' className='return-hamburger'
+              <button className='return-hamburger'
               aria-label='return to hamburger icon'
               onClick={()=> this.getBackHamburgerIcon()}>Back</button>
             )}
