@@ -49,7 +49,6 @@ body {
 }
 .search-locations:focus {
   background-image: url('./icons/filter-afterInteraction.svg');
-
 }
 .marker-list {
   width: 100%;
@@ -166,7 +165,6 @@ body {
     font-size: 0.7em
   }
 }
-/* Custom, iPhone Retina */
 @media only screen and (max-width : 550px) {
   .hamburger-icon-wrapper {
   	display:block;

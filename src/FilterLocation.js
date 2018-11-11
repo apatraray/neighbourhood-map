@@ -10,12 +10,18 @@ class FilterLocation extends Component {
     debounce(300,
       this.props.getQuery(query))
   }
+  /**
+   * show the sidebar when user clicks the hamburger icon.
+   */
   getHamBurgerIcon=()=> {
     this.setState({
       isHamBurgerIconOn: true,
       viewCount: 1
     })
   }
+  /**
+   * hide the sidebar when user clicks the hamburger icon.
+   */
   getBackHamburgerIcon =()=>{
     this.setState({
       isHamBurgerIconOn: false
@@ -33,6 +39,7 @@ class FilterLocation extends Component {
           onClick={()=> this.getHamBurgerIcon()}></button>
         </div>
       }
+      {/*show the sidebar as default for the first time and then hide*/}
         {(isHamBurgerIconOn === true || viewCount===0) &&
         <div className='filter-location'>
           <div className="search-locations-input-wrapper">
