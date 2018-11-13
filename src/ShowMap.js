@@ -13,6 +13,7 @@ class ShowMap extends Component {
       }
       this.props.onMarkerClick(props, marker, e)
   }
+
   render() {
     const {google, markers, onMouseoverMarker,
       onMapClicked, currentMarker, selectedPlace, showingInfoWindow,
@@ -70,5 +71,5 @@ class ShowMap extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ("AIzaSyBKB1JNeGT7tiLlNKdvSfnoXndV1UT8QIw")
+  apiKey: ("xxxx")
 })(ShowMap);

@@ -69,6 +69,7 @@ class FilterLocation extends Component {
             <li key={index} className='marker-list-item' role='treeitem' tabIndex={0}>
               <div className='marker-details'
               onClick={() => onMarkerClickFromList(marker, index)}
+              onKeyPress = {() => onMarkerClickFromList(marker, index)}
               >
               {marker.name}
               </div>
