@@ -71,5 +71,5 @@ class ShowMap extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ("xxxx")
+  apiKey: ("AIzaSyBKB1JNeGT7tiLlNKdvSfnoXndV1UT8QIw")
 })(ShowMap);

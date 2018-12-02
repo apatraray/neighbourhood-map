@@ -4,8 +4,8 @@ import ShowMap from './ShowMap';
 import escapeRegExp from 'escape-string-regexp';
 
 var foursquare = require('react-foursquare')({
-  clientID: 'xxxx',
-  clientSecret: 'xxxx'
+  clientID: 'PF2PXHO1CXGHJE4ZTURAESVOF5DGBK14DF05CYRQURPLWT42',
+  clientSecret: 'KQQTV2WASQX23QCDZQQRA4MSTNRJZGDZ1YEB3KMSOJAGOAAO'
 });
 //initial location details are provided
 var params = {
