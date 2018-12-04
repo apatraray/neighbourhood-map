@@ -1,4 +1,4 @@
-# MyReads Project
+# Neighborhood-Map Project
 
 This is a neighborhood-map app is developed using React, google-maps-react and
 foursquare api. The app uses foursquare api to get the venue details and google
